@@ -1,9 +1,11 @@
 <!doctype html>
 <html>
   <head>
-    <title>MetaMask Pay Button Example</title>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
 
+    <title>Water.org</title>
 <style>
+
 .pay-button {
   width: 152px;
   height: 44.5px;
@@ -15,47 +17,11 @@
   </head>
 
   <body>
-    <h1>MetaMask Pay Button Example</h1>
+    <h1 style="font-family: 'Quicksand', sans-serif;">Donate to Water.org!</h1>
     <input type="number" id="amount" min="0.01" max="10" step="0.05" placeholder="0.05">
 <button class="pay-button" onclick="donate()"></button>
 
   </body>
-
-
-<!-- <script>
-  function donate() {
-    if (typeof web3 !== 'object') {
-      alert('MetaMask not loaded, try later');
-      return;
-    }
-  
-  const web4 = new Web3(web3.currentProvider);
-  const amount = parseFloat(document.getElementById('amount').value);
-    
-    if (isNaN(amount) || amount < 0) {
-      alert('Please, enter valid donation size!');
-      return;
-    }
-    
-   if (!web4.eth.accounts[0]) {
-     alert('Please, login to MetaMask first');
-     return;
-   }
-    
-  const donationWallet = '0x0E140ffc4A27d3f79513b70AAE7E8e8e02F938E6';
-  const transactionObject = {
-    from: web4.eth.accounts[0],
-    to: donationWallet,
-    value: web4.toWei(amount),
-  }
-  console.log(transactionObject);
-  web4.eth.sendTransaction(transactionObject, function(){
-    alert('ok');
-  })
-  
-}
-  
-</script> -->
 
 <script>
 var MY_ADDRESS = '0xc669d3A20F921713F16Bce59D4Ac0241047EC6b2'
