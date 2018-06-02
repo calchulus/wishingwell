@@ -17,25 +17,62 @@
   <body>
     <h1>MetaMask Pay Button Example</h1>
 
-<input type="number" id="amount" min="0.01" max="10" step="0.05" placeholder="0.05">
-<button class="pay-button" onclick="donate()">Donate</button>
+    <div class="pay-button"></div>
+    <input type="number" id="amount" min="0.01" max="10" step="0.05" placeholder="0.05">
+<button onclick="donate()">Donate</button>
+
   </body>
 
-<script>
+
+<!-- <script>
+  function donate() {
+
+    if (typeof web3 !== 'object') {
+      alert('MetaMask not loaded, try later');
+      return;
+    }
   
+  const web4 = new Web3(web3.currentProvider);
   const amount = parseFloat(document.getElementById('amount').value);
+    
+    if (isNaN(amount) || amount < 0) {
+      alert('Please, enter valid donation size!');
+      return;
+    }
+    
+   if (!web4.eth.accounts[0]) {
+     alert('Please, login to MetaMask first');
+     return;
+   }
+    
+  const donationWallet = '0x0E140ffc4A27d3f79513b70AAE7E8e8e02F938E6';
+
+  const transactionObject = {
+    from: web4.eth.accounts[0],
+    to: donationWallet,
+    value: web4.toWei(amount),
+  }
+  console.log(transactionObject);
+  web4.eth.sendTransaction(transactionObject, function(){
+    alert('ok');
+  })
   
+}
+  
+</script> -->
+
+<script>
 var MY_ADDRESS = '0x2aceA0D6FC2f23874E3502E8bc62B5E5B922A7aa'
 var tipButton = document.querySelector('.pay-button')
 tipButton.addEventListener('click', function() {
   if (typeof web3 === 'undefined') {
-    return renderMessage('<div>You need to install <a href=“https://metamask.io“>MetaMask </a> to use this feature.  <a href=“https://metmask.io“>https://metamask.io</a></div>')
+    return renderMessage('<div>You need to install <a href=“https://metmask.io“>MetaMask </a> to use this feature.  <a href=“https://metamask.io“>https://metamask.io</a></div>')
   }
   var user_address = web3.eth.accounts[0]
   web3.eth.sendTransaction({
     to: MY_ADDRESS,
     from: user_address,
-    value: web3.toWei(amount, 'ether'),
+    value: web3.toWei(document.getElementById("amount").value, 'ether'),
   }, function (err, transactionHash) {
     if (err) return renderMessage('There was a problem!')
     renderMessage('Success, The transactionHash is ' + transactionHash)
