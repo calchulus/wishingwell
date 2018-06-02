@@ -16,33 +16,47 @@
 </style>
   </head>
 
-  <body>
+  <body">
     <h1 style="font-family: 'Quicksand', sans-serif;">Donate to Water.org!</h1>
     <input type="number" id="amount" min="0.01" max="10" step="0.05" placeholder="0.05">
 <button class="pay-button" onclick="donate()"></button>
 
   </body>
 
+
 <script>
-var MY_ADDRESS = '0xc669d3A20F921713F16Bce59D4Ac0241047EC6b2'
-var tipButton = document.querySelector('.pay-button')
-tipButton.addEventListener('click', function() {
-  if (typeof web3 === 'undefined') {
-    return renderMessage('<div>You need to install <a href=“https://metmask.io“>MetaMask </a> to use this feature.  <a href=“https://metamask.io“>https://metamask.io</a></div>')
+  function donate() {
+    if (typeof web3 !== 'object') {
+      alert('MetaMask not loaded, try later');
+      return;
+    }
+  
+  const web4 = new Web3(web3.currentProvider);
+  const amount = parseFloat(document.getElementById('amount').value);
+    
+    if (isNaN(amount) || amount < 0) {
+      alert('Please, enter valid donation size!');
+      return;
+    }
+    
+   if (!web4.eth.accounts[0]) {
+     alert('Please, login to MetaMask first');
+     return;
+   }
+    
+  const donationWallet = '0xc669d3A20F921713F16Bce59D4Ac0241047EC6b2';
+  const transactionObject = {
+    from: web4.eth.accounts[0],
+    to: donationWallet,
+    value: web4.toWei(amount),
   }
-  var user_address = web3.eth.accounts[0]
-  web3.eth.sendTransaction({
-    to: MY_ADDRESS,
-    from: user_address,
-    value: web3.toWei(document.getElementById("amount").value, 'ether'),
-  }, function (err, transactionHash) {
-    if (err) return renderMessage('There was a problem!')
-    renderMessage('Success, The transactionHash is ' + transactionHash)
+  console.log(transactionObject);
+  web4.eth.sendTransaction(transactionObject, function(){
+    alert('ok');
   })
-})
-function renderMessage (message) {
-  alert(message);
+  
 }
+  
 </script>
 
 </html>
